@@ -74,6 +74,21 @@ contract EscrowResolveDisputeTest is EscrowFixture {
         vm.assertEq(mockToken.balanceOf(SELLER_ADDR), sellerReimbursement, "Seller balance mismatch");
     }
 
+    function test_fullBuyerReimbursement() public from(ARBITER_ADDR) {
+        escrow.resolveDispute(ESCROW_VALUE);
+
+        vm.assertEq(mockToken.balanceOf(defaultSender), SENDER_BALANCE, "Buyer balance mismatch");
+        vm.assertEq(mockToken.balanceOf(SELLER_ADDR), 0, "Seller balance mismatch");
+    }
+
+    function test_fullSellerReimbursement() public from(ARBITER_ADDR) {
+        escrow.resolveDispute(0);
+        uint256 newBuyerBalance = SENDER_BALANCE - ESCROW_VALUE;
+
+        vm.assertEq(mockToken.balanceOf(defaultSender), newBuyerBalance, "Buyer balance mismatch");
+        vm.assertEq(mockToken.balanceOf(SELLER_ADDR), ESCROW_VALUE, "Seller balance mismatch");
+    }
+
     function test_SetStatus() public from(ARBITER_ADDR) {
         escrow.resolveDispute(0);
         vm.assertTrue(escrow.status() == EscrowStatus.Resolved);
