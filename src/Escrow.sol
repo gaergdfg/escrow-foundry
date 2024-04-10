@@ -19,6 +19,7 @@ contract Escrow is IEscrow {
     EscrowStatus public status;
 
     constructor(address _buyer, address _seller, address _arbiter, IERC20 _token, uint256 _value) {
+        require(_buyer != address(0), "Invalid buyer address");
         require(_seller != address(0), "Invalid seller address");
         require(_arbiter != address(0), "Invalid arbiter address");
         require(_token.balanceOf(address(this)) >= _value, "Insufficient funds");
