@@ -9,13 +9,6 @@ import {EscrowFactoryFixture} from "./fixtures/EscrowFactoryFixture.sol";
 import {Escrow} from "src/Escrow.sol";
 import {IEscrow, EscrowStatus} from "src/interfaces/IEscrow.sol";
 
-address constant SELLER_ADDR = address(1001);
-address constant ARBITER_ADDR = address(1002);
-address constant ZERO_ADDR = address(0);
-
-uint256 constant ESCROW_VALUE = 1e6;
-bytes32 constant SALT = "1234";
-
 contract EscrowFactoryCreateEscrowTest is EscrowFactoryFixture {
     event EscrowCreated(
         address escrowContract, address buyer, address seller, address arbiter, IERC20 token, uint256 value

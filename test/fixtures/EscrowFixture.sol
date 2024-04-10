@@ -2,28 +2,20 @@
 pragma solidity ^0.8.24;
 
 import {EscrowFactoryFixture} from "./EscrowFactoryFixture.sol";
+import {EscrowTestConstants} from "../utils/EscrowTestConstants.sol";
 import {TestExtended} from "../utils/TestExtended.sol";
 
 import {EscrowFactory} from "src/EscrowFactory.sol";
 import {MockToken} from "src/mocks/MockToken.sol";
 import {IEscrow} from "src/interfaces/IEscrow.sol";
 
-contract EscrowFixture is TestExtended {
+contract EscrowFixture is TestExtended, EscrowTestConstants {
     EscrowFactory escrowFactory;
     MockToken mockToken;
 
     IEscrow escrow;
 
     uint256 constant SENDER_BALANCE = 1e9;
-
-    address constant SELLER_ADDR = address(1001);
-    address constant ARBITER_ADDR = address(1002);
-    address constant RANDOM_ADDR = address(123654);
-    address constant ZERO_ADDR = address(0);
-
-    uint256 constant ESCROW_VALUE = 1e6;
-    bytes32 constant SALT = "1234";
-    bytes32 constant SALT2 = "2345";
 
     function loadFixture() internal {
         escrowFactory = new EscrowFactory();

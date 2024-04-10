@@ -2,11 +2,12 @@
 pragma solidity ^0.8.24;
 
 import {EscrowFactoryHarness} from "../harnesses/EscrowFactoryHarness.sol";
+import {EscrowTestConstants} from "../utils/EscrowTestConstants.sol";
 import {TestExtended} from "../utils/TestExtended.sol";
 
 import {MockToken} from "src/mocks/MockToken.sol";
 
-contract EscrowFactoryFixture is TestExtended {
+contract EscrowFactoryFixture is TestExtended, EscrowTestConstants {
     EscrowFactoryHarness escrowFactory;
     MockToken mockToken;
 
