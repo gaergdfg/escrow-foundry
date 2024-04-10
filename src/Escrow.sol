@@ -37,11 +37,10 @@ contract Escrow is IEscrow {
         require(msg.sender == buyer, "Not a buyer");
         require(status == EscrowStatus.Created, "Unexpected escrow status");
 
-        token.safeTransfer(seller, value);
-
         status = EscrowStatus.Confirmed;
-
         emit Confirmed();
+
+        token.safeTransfer(seller, value);
     }
 
     function denyTransaction() external {
@@ -49,7 +48,6 @@ contract Escrow is IEscrow {
         require(status == EscrowStatus.Created, "Unexpected escrow status");
 
         status = EscrowStatus.Denied;
-
         emit Denied();
     }
 
@@ -60,6 +58,9 @@ contract Escrow is IEscrow {
         uint256 totalBalance = token.balanceOf(address(this));
         require(buyerReimbursement <= totalBalance, "Reimbursement exceeds balance");
 
+        status = EscrowStatus.Resolved;
+        emit Resolved(buyerReimbursement);
+
         if (buyerReimbursement > 0) {
             token.safeTransfer(buyer, buyerReimbursement);
         }
@@ -68,9 +69,5 @@ contract Escrow is IEscrow {
         if (remainingBalance > 0) {
             token.safeTransfer(seller, remainingBalance);
         }
-
-        status = EscrowStatus.Resolved;
-
-        emit Resolved(buyerReimbursement);
     }
 }
