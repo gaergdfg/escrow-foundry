@@ -6,9 +6,7 @@ import {EscrowFixture} from "./fixtures/EscrowFixture.sol";
 import {EscrowStatus} from "src/interfaces/IEscrow.sol";
 
 contract EscrowConfirmTransactionTest is EscrowFixture {
-    event Confirmed();
     event Denied();
-    event Resolved();
 
     function setUp() public {
         loadFixture();

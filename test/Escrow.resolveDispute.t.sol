@@ -8,8 +8,6 @@ import {IEscrow, EscrowStatus} from "src/interfaces/IEscrow.sol";
 uint256 constant BUYER_REIMBURSEMENT = 182743;
 
 contract EscrowResolveDisputeTest is EscrowFixture {
-    event Confirmed();
-    event Denied();
     event Resolved(uint256 buyerReimbursement);
 
     function setUp() public {
