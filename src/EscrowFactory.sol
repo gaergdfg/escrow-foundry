@@ -23,7 +23,7 @@ contract EscrowFactory is IEscrowFactory {
         token.safeTransferFrom(msg.sender, nextEscrowAddress, value);
 
         Escrow escrow = new Escrow{salt: salt}(msg.sender, seller, arbiter, token, value);
-        require(address(escrow) == nextEscrowAddress, "Invalid deployment address");
+        assert(address(escrow) == nextEscrowAddress);
 
         emit EscrowCreated(address(escrow), msg.sender, seller, arbiter, token, value);
 
