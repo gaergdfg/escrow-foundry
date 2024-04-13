@@ -15,6 +15,8 @@ contract EscrowFactory is IEscrowFactory {
         external
         returns (IEscrow)
     {
+        require(value > 0, "Value cannot be zero");
+
         address nextEscrowAddress = _computeNextAddress(
             type(Escrow).creationCode, address(this), salt, msg.sender, seller, arbiter, token, value
         );

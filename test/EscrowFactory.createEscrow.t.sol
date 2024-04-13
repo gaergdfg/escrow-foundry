@@ -28,6 +28,11 @@ contract EscrowFactoryCreateEscrowTest is EscrowFactoryFixture {
         escrowFactory.createEscrow(SELLER_ADDR, ZERO_ADDR, mockToken, ESCROW_VALUE, SALT);
     }
 
+    function test_RevertOn_ZeroValue() public {
+        expectRevert("Value cannot be zero");
+        escrowFactory.createEscrow(SELLER_ADDR, ARBITER_ADDR, mockToken, 0, SALT);
+    }
+
     function test_SetFields() public {
         IEscrow escrow = escrowFactory.createEscrow(SELLER_ADDR, ARBITER_ADDR, mockToken, ESCROW_VALUE, SALT);
 

@@ -22,6 +22,8 @@ contract Escrow is IEscrow {
         require(_buyer != address(0), "Invalid buyer address");
         require(_seller != address(0), "Invalid seller address");
         require(_arbiter != address(0), "Invalid arbiter address");
+        require(_value > 0, "Value cannot be zero");
+
         require(_token.balanceOf(address(this)) >= _value, "Insufficient funds");
 
         buyer = _buyer;
